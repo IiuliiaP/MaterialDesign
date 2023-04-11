@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import coil.load
 import com.example.materialdesign.R
 import com.example.materialdesign.databinding.FragmentPictureOfTheDayBinding
 import com.example.materialdesign.viewmodel.AppState
@@ -42,9 +43,13 @@ class PictureOfTheDayFragment : Fragment() {
 
     private fun renderData(appState: AppState){
         when(appState){
-            is AppState.Error -> TODO()
-            AppState.Loading -> TODO()
-            is AppState.Success -> TODO()
+            is AppState.Error -> {
+                TODO()
+            }
+            AppState.Loading -> {}
+            is AppState.Success -> {
+                binding.imageView.load(appState.pictureOfTheDayResponseData.url)
+            }
         }
     }
 
