@@ -1,6 +1,7 @@
 package com.example.materialdesign.model
 
-import com.example.materialdesign.BASE_URL
+
+import com.example.materialdesign.utils.BASE_URL
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,7 +19,5 @@ class RepositoryImpl: Repository {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .build()
     }
-
-
 
 }

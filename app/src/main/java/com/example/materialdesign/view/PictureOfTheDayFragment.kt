@@ -1,10 +1,13 @@
 package com.example.materialdesign.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.example.materialdesign.R
@@ -39,14 +42,28 @@ class PictureOfTheDayFragment : Fragment() {
             renderData(appState)
         }
         viewModel.sendRequest()
+
+        binding.chipToday.setOnCloseIconClickListener{
+            Toast.makeText(requireContext(), "Today", Toast.LENGTH_SHORT).show()
+        }
+        binding.chipYesterday.setOnClickListener {
+            Toast.makeText(requireContext(), "Yesterday", Toast.LENGTH_SHORT).show()
+        }
+        binding.wikiInput.setEndIconOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("https://en.wikipedia.org/wiki/${binding.inputLine.text.toString()}")
+            })
+        }
     }
 
     private fun renderData(appState: AppState){
         when(appState){
             is AppState.Error -> {
-                TODO()
+
             }
-            AppState.Loading -> {}
+            AppState.Loading -> {
+
+            }
             is AppState.Success -> {
                 binding.imageView.load(appState.pictureOfTheDayResponseData.url)
             }
