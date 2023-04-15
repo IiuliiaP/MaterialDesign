@@ -14,12 +14,24 @@
         <!-- Customize your theme here. -->
         <item name="colorOnSurface">@color/teal_700</item>
         <item name="colorOnSurfaceVariant">@color/purple_500</item>
+        <item name="shapeAppearanceSmallComponent">@style/MyShapeAppearanceSmallComponent</item>
+        <item name="textAppearanceBody2">@style/MyTextAppearanceBody2</item>
+    </style>
 
+    <style name="MoonTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/blue_dark_moon</item>
+        <item name="colorPrimaryVariant">@color/blue_light_moon</item>
+        <item name="colorOnPrimary">@color/green_light_moon</item>
+        <item name="colorOnSurface">@color/blue_light_moon</item>
+        <item name="colorOnSurfaceVariant">@color/light_moon</item>
+    </style>
 
-
-
-
-
+    <style name="JupiterTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/bright_jupiter</item>
+        <item name="colorPrimaryVariant">@color/brown_light_jupiter</item>
+        <item name="colorOnPrimary">@color/light_jupiter</item>
+        <item name="colorOnSurface">@color/bright_jupiter</item>
+        <item name="colorOnSurfaceVariant">@color/brown_light_jupiter</item>
     </style>
 
 </resources>
