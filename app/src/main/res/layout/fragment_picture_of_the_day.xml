@@ -7,7 +7,7 @@
     tools:context=".view.PictureOfTheDayFragment">
 
  <com.google.android.material.textfield.TextInputLayout
-     android:id="@+id/wiki_input"
+     android:id="@+id/wikiInput"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
      android:layout_marginTop="8dp"
@@ -18,7 +18,7 @@
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toTopOf="parent">
   <com.google.android.material.textfield.TextInputEditText
-      android:id="@+id/input_line"
+      android:id="@+id/inputLine"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       />
@@ -26,7 +26,7 @@
 
 
  <com.google.android.material.chip.ChipGroup
-     android:id="@+id/chip_group"
+     android:id="@+id/chipGroup"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
      android:layout_marginTop="4dp"
@@ -34,30 +34,42 @@
      app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintHorizontal_bias="1.0"
      app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@id/wiki_input"
+     app:layout_constraintTop_toBottomOf="@id/wikiInput"
      app:singleSelection="true">
 
   <com.google.android.material.chip.Chip
-      android:id="@+id/chip_yesterday"
+      android:id="@+id/chipYesterday"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/components_height"
       android:text="@string/yesterday" />
 
   <com.google.android.material.chip.Chip
-      android:id="@+id/chip_today"
+      android:id="@+id/chipToday"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/components_height"
       android:text="@string/today" />
  </com.google.android.material.chip.ChipGroup>
 
  <ImageView
-     android:id="@+id/image_view"
+     android:id="@+id/imageView"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:layout_margin="12dp"
      android:contentDescription=" "
      app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toBottomOf="@id/chip_group"/>
+     app:layout_constraintTop_toBottomOf="@id/chipGroup"/>
+
+ <com.google.android.material.bottomappbar.BottomAppBar
+     android:id="@+id/bottomAppBar"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     app:menuAlignmentMode="auto"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:menu="@menu/menu_picture_fragment" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
