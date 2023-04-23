@@ -1,5 +1,6 @@
 package com.example.materialdesign.view
 
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -53,15 +54,21 @@ class PictureOfTheDayFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-        when(item.itemId){
-            R.id.actionFavorite->{
+
+        when (item.itemId) {
+            R.id.actionFavorite -> {}
+            R.id.actionSettings -> {
+                requireActivity().supportFragmentManager.beginTransaction().hide(this)
+                    .add(R.id.container, SettingsFragment.newInstance()).addToBackStack("").commit()
 
             }
-            R.id.actionSettings->{
-
+            R.id.actionHome ->{
+                requireActivity().supportFragmentManager.beginTransaction().show(BottomNavigationDrawerFragment.newInstance())
+                    .addToBackStack("").commit()
             }
         }
+        return super.onOptionsItemSelected(item)
+
     }
 
     private fun wikiSearch(searchText: String){

@@ -7,4 +7,9 @@
     <string name="search">search</string>
     <string name="favourite">favourite</string>
     <string name="settings">settings</string>
+    <string name="show_screen1">На экран 1</string>
+    <string name="show_screen2">На экран 2</string>
+    <string name="home">home</string>
+    <string name="moon">moon</string>
+    <string name="jupiter">jupiter</string>
 </resources>
