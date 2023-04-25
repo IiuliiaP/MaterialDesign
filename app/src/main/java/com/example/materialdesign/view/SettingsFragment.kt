@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import com.example.materialdesign.MainActivity
 import com.example.materialdesign.R
@@ -21,50 +22,57 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
     private lateinit var parentActivity: MainActivity
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        parentActivity = activity as MainActivity
+        parentActivity = context as MainActivity
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
-                    0-> parentActivity.setTheme(R.style.JupiterTheme)
-                    1-> parentActivity.setTheme( R.style.MoonTheme)
+                    0-> parentActivity.theme.applyStyle(R.style.JupiterTheme, true)
+                    1-> parentActivity.theme.applyStyle(R.style.MoonTheme, true)
                 }
-
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.imageView, PictureOfTheDayFragment.newInstance()).addToBackStack("").commit()
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 if(tab?.position==0){
-                    parentActivity.setTheme(R.style.MoonTheme)
+                    parentActivity.theme.applyStyle(R.style.MoonTheme, true)
 
-                }else parentActivity.setTheme(R.style.JupiterTheme)
+                }else {
+                    parentActivity.theme.applyStyle(R.style.JupiterTheme, true)
+                }
 
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 if(tab?.position==0) {
                     parentActivity.setTheme(R.style.JupiterTheme)
+                }else {
+                    parentActivity.setTheme(R.style.MoonTheme)
                 }
+                parentActivity.recreate()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, PictureOfTheDayFragment()).addToBackStack("").commit()
 
             }
         })
-
 
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
         fun newInstance() = SettingsFragment()
     }
