@@ -7,4 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    //moon theme
+    <color name="light_moon">#c4cfcf</color>
+    <color name="blue_light_moon">#3b4073</color>
+    <color name="green_light_moon">#e6e8d2</color>
+    <color name="blue_dark_moon">#190847</color>
+
+    //jupiter theme
+    <color name="light_jupiter">#ebf3f6</color>
+    <color name="brown_light_jupiter">#a59186</color>
+    <color name="green_light_jupiter">#d8ca9d</color>
+    <color name="bright_jupiter">#c99039</color>
+
 </resources>
