@@ -11,6 +11,7 @@ import coil.load
 import com.example.materialdesign.MainActivity
 import com.example.materialdesign.R
 import com.example.materialdesign.databinding.FragmentPictureOfTheDayBinding
+import com.example.materialdesign.view.viewpager.ViewPagerActivity
 import com.example.materialdesign.viewmodel.AppState
 import com.example.materialdesign.viewmodel.PictureOfTheDayViewModel
 
@@ -56,7 +57,11 @@ class PictureOfTheDayFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.actionFavorite -> {}
+            R.id.actionFavorite -> {
+                activity?.let {
+                    startActivity(Intent(it, ViewPagerActivity::class.java))
+                }
+            }
             R.id.actionSettings -> {
                 requireActivity().supportFragmentManager.beginTransaction().hide(this)
                     .add(R.id.container, SettingsFragment.newInstance()).addToBackStack("").commit()
