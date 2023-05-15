@@ -9,7 +9,15 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"/>
+
+    </androidx.viewpager.widget.ViewPager>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
