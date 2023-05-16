@@ -130,11 +130,13 @@ class PictureOfTheDayFragment : Fragment() {
             TransitionManager.beginDelayedTransition(binding.root, transitionSet)
             if(isFlag){
                 params.height = CoordinatorLayout.LayoutParams.MATCH_PARENT
+                params.topMargin = 0
                 binding.imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                 binding.wikiInput.visibility = View.GONE
                 binding.bottomAppBar.visibility = View.GONE
             }else {
                 params.height = CoordinatorLayout.LayoutParams.WRAP_CONTENT
+                params.topMargin = resources.getDimensionPixelSize(R.dimen.margin_top_picure_of_the_day)
                 binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
                 binding.wikiInput.isVisible = true
                 binding.bottomAppBar.isVisible = true
