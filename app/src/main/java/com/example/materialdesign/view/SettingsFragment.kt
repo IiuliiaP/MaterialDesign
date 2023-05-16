@@ -39,8 +39,8 @@ class SettingsFragment : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
-                    0-> parentActivity.theme.applyStyle(R.style.JupiterTheme, true)
-                    1-> parentActivity.theme.applyStyle(R.style.MoonTheme, true)
+                    0 -> {parentActivity.theme.applyStyle(R.style.JupiterTheme, true)}
+                    1 -> {parentActivity.theme.applyStyle(R.style.MoonTheme, true)}
                 }
             }
 
