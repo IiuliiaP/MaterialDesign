@@ -4,6 +4,8 @@ import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
+import androidx.transition.TransitionManager
 import com.example.materialdesign.R
 import com.example.materialdesign.databinding.ActivityViewPagerBinding
 
@@ -23,13 +25,16 @@ class ViewPagerActivity : AppCompatActivity() {
 
         binding.fabViewPagerActivity.setOnClickListener {
             isFlag = !isFlag
+            TransitionManager.beginDelayedTransition(binding.root)
             if(isFlag){
                 ObjectAnimator.ofFloat(binding.fabViewPagerActivity, View.ROTATION, 0f,720f)
                     .setDuration(1000L).start()
+                binding.tabLayoutViewPager.visibility = View.GONE
 
             }else{
-                ObjectAnimator.ofFloat(binding.fabViewPagerActivity, View.ROTATION, 0f,0f)
+                ObjectAnimator.ofFloat(binding.fabViewPagerActivity, View.ROTATION, 720f,0f)
                     .setDuration(1000L).start()
+                binding.tabLayoutViewPager.isVisible = true
             }
         }
 
