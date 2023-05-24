@@ -2,4 +2,5 @@
 <resources>
     <dimen name="components_height">48dp</dimen>
     <dimen name="padding">8dp</dimen>
+    <dimen name="margin_top_picure_of_the_day">100dp</dimen>
 </resources>

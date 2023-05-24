@@ -5,8 +5,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.ChangeBounds
+import androidx.transition.ChangeImageTransform
+import androidx.transition.TransitionManager
+import androidx.transition.TransitionSet
 import coil.load
 import com.example.materialdesign.MainActivity
 import com.example.materialdesign.R
@@ -17,6 +24,8 @@ import com.example.materialdesign.viewmodel.PictureOfTheDayViewModel
 
 
 class PictureOfTheDayFragment : Fragment() {
+    var isFlag = false
+
     private var _binding: FragmentPictureOfTheDayBinding? = null
     private val binding get() = _binding!!
 
@@ -42,6 +51,8 @@ class PictureOfTheDayFragment : Fragment() {
             renderData(appState)
         }
         viewModel.sendRequest()
+
+        pictureAnimation()
 
         wikiSearch(binding.inputLine.text.toString())
 
@@ -102,5 +113,36 @@ class PictureOfTheDayFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = PictureOfTheDayFragment()
+    }
+
+    private fun pictureAnimation(){
+        binding.imageView.setOnClickListener {
+            isFlag = !isFlag
+            val params = it.layoutParams as CoordinatorLayout.LayoutParams
+            val transitionSet = TransitionSet()
+            val changeImageTransform = ChangeImageTransform()
+            val changeBounds = ChangeBounds()
+            transitionSet.duration = 2000L
+
+            transitionSet.addTransition(changeBounds)
+            transitionSet.addTransition(changeImageTransform)
+
+            TransitionManager.beginDelayedTransition(binding.root, transitionSet)
+            if(isFlag){
+                params.height = CoordinatorLayout.LayoutParams.MATCH_PARENT
+                params.topMargin = 0
+                binding.imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                binding.wikiInput.visibility = View.GONE
+                binding.bottomAppBar.visibility = View.GONE
+            }else {
+                params.height = CoordinatorLayout.LayoutParams.WRAP_CONTENT
+                params.topMargin = resources.getDimensionPixelSize(R.dimen.margin_top_picure_of_the_day)
+                binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
+                binding.wikiInput.isVisible = true
+                binding.bottomAppBar.isVisible = true
+            }
+            binding.imageView.layoutParams = params
+        }
+
     }
 }

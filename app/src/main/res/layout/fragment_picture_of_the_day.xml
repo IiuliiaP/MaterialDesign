@@ -28,7 +28,7 @@
      android:id="@+id/imageView"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
-     android:layout_marginTop="100dp"
+     android:layout_marginTop="@dimen/margin_top_picure_of_the_day"
      android:gravity="center"
 
      />
