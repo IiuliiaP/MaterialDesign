@@ -3,4 +3,9 @@
     <dimen name="components_height">48dp</dimen>
     <dimen name="padding">8dp</dimen>
     <dimen name="margin_top_picure_of_the_day">100dp</dimen>
+    <dimen name="layout_margin_up_down">18dp</dimen>
+    <dimen name="image_view_width">80dp</dimen>
+    <dimen name="image_view_height">80dp</dimen>
+    <dimen name="text_size_recycler">32sp</dimen>
+    <dimen name="text_margin_recycler">12dp</dimen>
 </resources>
