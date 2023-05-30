@@ -24,14 +24,19 @@ class RecyclerActivity : AppCompatActivity() {
         binding = ActivityRecyclerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = RecyclerAdapter(data, callbackAdd, callbackRemove)
+        adapter = RecyclerAdapter(data, callbackAddMars, callbackAddEarth, callbackRemove)
         binding.recyclerView.adapter = adapter
 
         ItemTouchHelper(ItemTouchHelperCallback(adapter)).attachToRecyclerView(binding.recyclerView)
 
     }
 
-    private val callbackAdd = AddItem {
+    private val callbackAddEarth = AddItem {
+        data.add(it, Pair(Data(0,"Earth(New)", type = TYPE_EARTH),false))
+        adapter.setListDataAdd(data, it)
+    }
+
+    private val callbackAddMars = AddItem {
         data.add(it, Pair(Data(0,"Mars(New)", type = TYPE_MARS),false))
         adapter.setListDataAdd(data, it)
     }

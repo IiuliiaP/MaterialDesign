@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.example.materialdesign.R
 import com.example.materialdesign.databinding.ActivityRecyclerItemEarthBinding
@@ -12,7 +13,8 @@ import com.example.materialdesign.databinding.ActivityRecyclerItemMarsBinding
 
 
 class RecyclerAdapter(private var listData: MutableList<Pair<Data, Boolean>>,
-                       val callbackAdd : AddItem,
+                       val callbackAddMars : AddItem,
+                       val callbackAddEarth: AddItem,
                        val callbackRemove : RemoveItem):
     RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>(), ItemTouchHelperAdapter {
 
@@ -36,11 +38,11 @@ class RecyclerAdapter(private var listData: MutableList<Pair<Data, Boolean>>,
     ): MyViewHolder {
         return when(viewType){
             TYPE_EARTH ->{
-                val binding = ActivityRecyclerItemEarthBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ActivityRecyclerItemEarthBinding.inflate(LayoutInflater.from(parent.context),parent, false)
                 EarthViewHolder(binding)
             }
             TYPE_MARS -> {
-                val binding = ActivityRecyclerItemMarsBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ActivityRecyclerItemMarsBinding.inflate(LayoutInflater.from(parent.context),parent, false)
                 MarsViewHolder(binding)
             }
 
@@ -59,9 +61,6 @@ class RecyclerAdapter(private var listData: MutableList<Pair<Data, Boolean>>,
         override fun getItemCount(): Int {
         return listData.size
         }
-
-
-
     abstract class MyViewHolder(view: View) :
             RecyclerView.ViewHolder(view), ItemTouchHelperViewHolder {
             abstract fun bind(data: Pair<Data, Boolean>)
@@ -82,17 +81,37 @@ class RecyclerAdapter(private var listData: MutableList<Pair<Data, Boolean>>,
    inner class EarthViewHolder(private val binding: ActivityRecyclerItemEarthBinding) :
         MyViewHolder(binding.root) {
         override fun bind(data: Pair<Data, Boolean>) {
-            binding.earthItemTextView.text = data.first.name
+            binding.name.text = data.first.name
+
+            binding.earthItemAddImageView.setOnClickListener {
+                callbackAddEarth.add(layoutPosition)
+            }
+            binding.earthItemDeleteImageView.setOnClickListener {
+                callbackRemove.remove(layoutPosition)
+            }
+            binding.earthItemMoveUp.setOnClickListener {
+                listData.removeAt(layoutPosition).apply {
+                    listData.add(layoutPosition - 1, this)
+                }
+                notifyItemMoved(layoutPosition, layoutPosition - 1)
+            }
+            binding.earthItemMoveDown.setOnClickListener {
+                listData.removeAt(layoutPosition).apply {
+                    listData.add(layoutPosition + 1, this)
+                }
+                notifyItemMoved(layoutPosition, layoutPosition + 1)
+
+            }
         }
     }
 
     inner class MarsViewHolder(private val binding: ActivityRecyclerItemMarsBinding) :
         MyViewHolder(binding.root){
         override fun bind(data: Pair<Data, Boolean>) {
-            binding.marsItemTextView.text = data.first.name
+            binding.name.text = data.first.name
 
             binding.marsItemAddImageView.setOnClickListener {
-                callbackAdd.add(layoutPosition)
+                callbackAddMars.add(layoutPosition)
             }
             binding.marsItemDeleteImageView.setOnClickListener {
                 callbackRemove.remove(layoutPosition)
@@ -112,13 +131,10 @@ class RecyclerAdapter(private var listData: MutableList<Pair<Data, Boolean>>,
             }
         }
         }
-
-
-
     inner class HeaderViewHolder(private val binding: ActivityRecyclerItemHeaderBinding):
         MyViewHolder(binding.root){
         override fun bind(data: Pair<Data, Boolean>) {
-            binding.headerItemTextView.text = data.first.name
+            binding.name.text = data.first.name
         }
 
     }
