@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/marsItemImageView"
+        android:id="@+id/earthItemImageView"
         android:layout_width="@dimen/image_view_width"
         android:layout_height="@dimen/image_view_height"
         app:layout_constraintStart_toStartOf="parent"
@@ -13,17 +13,17 @@
         app:srcCompat="@drawable/earth"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/marsItemTextView"
+        android:id="@+id/earthItemTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin_recycler"
         android:textSize="@dimen/text_size_recycler"
         android:text="@string/earth_text"
-        app:layout_constraintStart_toEndOf="@+id/marsItemImageView"
+        app:layout_constraintStart_toEndOf="@+id/earthItemImageView"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/marsItemDeleteImageView"
+        android:id="@+id/earthItemDeleteImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -32,28 +32,28 @@
         app:srcCompat="@drawable/ic_delete"/>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/marsItemAddImageView"
+        android:id="@+id/earthItemAddImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/marsItemDeleteImageView"
+        app:layout_constraintTop_toBottomOf="@+id/earthItemDeleteImageView"
         app:srcCompat="@drawable/ic_add"/>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/marsItemMoveUp"
+        android:id="@+id/earthItemMoveUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/layout_margin_up_down"
-        app:layout_constraintEnd_toStartOf="@id/marsItemMoveDown"
+        app:layout_constraintEnd_toStartOf="@id/earthItemMoveDown"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_upward" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/marsItemMoveDown"
+        android:id="@+id/earthItemMoveDown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/marsItemAddImageView"
+        app:layout_constraintEnd_toStartOf="@+id/earthItemAddImageView"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/ic_arrow_downward"
         android:layout_margin="@dimen/layout_margin_up_down"/>

@@ -14,7 +14,7 @@
         android:theme="@style/Theme.MaterialDesign"
         tools:targetApi="31">
         <activity
-            android:name=".RecyclerActivity"
+            android:name=".view.recycler.RecyclerActivity"
             android:exported="false" />
         <activity
             android:name=".view.viewpager.ViewPagerActivity"

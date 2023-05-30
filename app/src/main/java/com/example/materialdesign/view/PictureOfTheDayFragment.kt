@@ -18,6 +18,7 @@ import coil.load
 import com.example.materialdesign.MainActivity
 import com.example.materialdesign.R
 import com.example.materialdesign.databinding.FragmentPictureOfTheDayBinding
+import com.example.materialdesign.view.recycler.RecyclerActivity
 import com.example.materialdesign.view.viewpager.ViewPagerActivity
 import com.example.materialdesign.viewmodel.AppState
 import com.example.materialdesign.viewmodel.PictureOfTheDayViewModel
@@ -79,8 +80,9 @@ class PictureOfTheDayFragment : Fragment() {
 
             }
             R.id.actionHome ->{
-                requireActivity().supportFragmentManager.beginTransaction().show(BottomNavigationDrawerFragment.newInstance())
-                    .addToBackStack("").commit()
+                activity?.let{
+                    startActivity(Intent(it, RecyclerActivity::class.java))
+                }
             }
         }
         return super.onOptionsItemSelected(item)
