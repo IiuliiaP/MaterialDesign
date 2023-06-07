@@ -2,19 +2,27 @@ package com.example.materialdesign.view
 
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.method.ScrollingMovementMethod
 import android.text.style.ForegroundColorSpan
+import android.text.style.TypefaceSpan
 import android.text.style.UnderlineSpan
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.provider.FontRequest
+import androidx.core.provider.FontsContractCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -109,21 +117,50 @@ class PictureOfTheDayFragment : Fragment() {
         }
     }
 
-    private fun changeTextView(){
+    private fun changeTextView() {
         val text = binding.textViewPictureExplanation.text.toString()
         val spannableStringBuilder = SpannableStringBuilder(text)
-        binding.textViewPictureExplanation.setText(spannableStringBuilder, TextView.BufferType.EDITABLE)
-        for (i in text.indices){
-            if(text[i]=='e'){
+
+        for (i in text.indices) {
+            if (text[i] == 'e') {
                 spannableStringBuilder.setSpan(
-                    ForegroundColorSpan(ContextCompat.getColor(requireContext(),
-                        androidx.appcompat.R.color.material_blue_grey_800)),
-                    i,i+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            androidx.appcompat.R.color.error_color_material_dark
+                        )
+                    ),
+                    i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
             }
         }
 
-        spannableStringBuilder.setSpan(UnderlineSpan(),0,8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-    }
+        spannableStringBuilder.setSpan(UnderlineSpan(), 0, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
+        val request = FontRequest(
+            "com.google.android.gms.fonts", "com.google.android.gms", "Roboto",
+            R.array.com_google_android_gms_fonts_certs
+        )
+
+        val callback = object : FontsContractCompat.FontRequestCallback() {
+            @RequiresApi(Build.VERSION_CODES.P)
+            override fun onTypefaceRetrieved(typeface: Typeface?) {
+                typeface?.let {
+                    spannableStringBuilder.setSpan(
+                        TypefaceSpan(it),
+                        0, spannableStringBuilder.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                super.onTypefaceRetrieved(typeface)
+            }
+        }
+            FontsContractCompat.requestFont(requireContext(),request,callback, Handler(Looper.getMainLooper()))
+
+        binding.textViewPictureExplanation.setText(spannableStringBuilder, TextView.BufferType.EDITABLE)
+
+        }
+
 
     private fun renderData(appState: AppState){
         when(appState){
