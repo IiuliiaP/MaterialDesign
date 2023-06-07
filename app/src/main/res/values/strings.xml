@@ -14,4 +14,5 @@
     <string name="jupiter">jupiter</string>
     <string name="mars_text">mars</string>
     <string name="earth_text">earth</string>
+    <string name="textview_span_textview_textview_settext_charsequence">Изменение текста всегда влечёт за собой вызов методов жизненного цикла TextView, в котором мы модифицируем текст, меняя его цвет или размер. Представим такую ситуацию, когда в вашем приложении пользователь может редактировать текст на ходу или просто настраивать внешний вид экрана. Вы наверняка предполагаете, что сначала нужно изменить текст с помощью span, а затем передать этот текст в TextView через TextView.setText(CharSequence). Но это всегда будет вызывать полную перерисовку объекта с вызово</string>
 </resources>

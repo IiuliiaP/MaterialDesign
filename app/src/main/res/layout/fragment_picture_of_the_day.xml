@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,8 +30,21 @@
      android:layout_height="wrap_content"
      android:layout_marginTop="@dimen/margin_top_picure_of_the_day"
      android:gravity="center"
+     app:layout_constraintTop_toBottomOf="@id/wikiInput"
+     app:layout_constraintStart_toStartOf="parent"/>
 
-     />
+
+ <TextView
+     android:id="@+id/textViewPictureExplanation"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_gravity="bottom"
+     android:layout_margin="@dimen/margin_text_view_pod"
+     android:fontFamily="@font/dm_mono"
+     android:scrollbars="vertical"
+     android:text="@string/textview_span_textview_textview_settext_charsequence"
+     app:layout_constraintTop_toBottomOf="@id/imageView"
+     app:layout_constraintStart_toStartOf="parent" />
 
  <com.google.android.material.bottomappbar.BottomAppBar
      android:id="@+id/bottomAppBar"
@@ -39,8 +52,11 @@
      android:layout_height="wrap_content"
      android:layout_gravity="bottom"
      app:menu="@menu/menu_picture_fragment"
-     app:menuAlignmentMode="auto" />
+     app:menuAlignmentMode="auto"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintBottom_toBottomOf="parent"
+     tools:ignore="BottomAppBar" />
 
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
