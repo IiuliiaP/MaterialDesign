@@ -34,4 +34,10 @@
         <item name="colorOnSurfaceVariant">@color/brown_light_jupiter</item>
     </style>
 
+    <style name="SplashTheme" parent="MoonTheme" >
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+    </style>
+
 </resources>
