@@ -35,6 +35,7 @@ import com.example.materialdesign.MainActivity
 import com.example.materialdesign.R
 import com.example.materialdesign.databinding.FragmentPictureOfTheDayBinding
 import com.example.materialdesign.view.recycler.RecyclerActivity
+import com.example.materialdesign.view.ux.UxActivity
 import com.example.materialdesign.view.viewpager.ViewPagerActivity
 import com.example.materialdesign.viewmodel.AppState
 import com.example.materialdesign.viewmodel.PictureOfTheDayViewModel
@@ -95,9 +96,9 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
             R.id.actionSettings -> {
-                requireActivity().supportFragmentManager.beginTransaction().hide(this)
-                    .add(R.id.container, SettingsFragment.newInstance()).addToBackStack("").commit()
-
+                activity?.let {
+                    startActivity(Intent(it, UxActivity::class.java))
+                }
             }
             R.id.actionHome ->{
                 activity?.let{
