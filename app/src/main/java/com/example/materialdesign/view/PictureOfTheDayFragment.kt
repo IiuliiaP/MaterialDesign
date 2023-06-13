@@ -1,12 +1,28 @@
 package com.example.materialdesign.view
 
-import android.app.ProgressDialog.show
+
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.method.ScrollingMovementMethod
+import android.text.style.ForegroundColorSpan
+import android.text.style.TypefaceSpan
+import android.text.style.UnderlineSpan
 import android.view.*
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
+import androidx.core.provider.FontRequest
+import androidx.core.provider.FontsContractCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +35,7 @@ import com.example.materialdesign.MainActivity
 import com.example.materialdesign.R
 import com.example.materialdesign.databinding.FragmentPictureOfTheDayBinding
 import com.example.materialdesign.view.recycler.RecyclerActivity
+import com.example.materialdesign.view.ux.UxActivity
 import com.example.materialdesign.view.viewpager.ViewPagerActivity
 import com.example.materialdesign.viewmodel.AppState
 import com.example.materialdesign.viewmodel.PictureOfTheDayViewModel
@@ -53,9 +70,13 @@ class PictureOfTheDayFragment : Fragment() {
         }
         viewModel.sendRequest()
 
+        binding.textViewPictureExplanation.movementMethod = ScrollingMovementMethod.getInstance()
+
         pictureAnimation()
 
         wikiSearch(binding.inputLine.text.toString())
+
+        changeTextView()
 
         setHasOptionsMenu(true)
         (requireActivity() as MainActivity).setSupportActionBar(binding.bottomAppBar)
@@ -75,9 +96,9 @@ class PictureOfTheDayFragment : Fragment() {
                 }
             }
             R.id.actionSettings -> {
-                requireActivity().supportFragmentManager.beginTransaction().hide(this)
-                    .add(R.id.container, SettingsFragment.newInstance()).addToBackStack("").commit()
-
+                activity?.let {
+                    startActivity(Intent(it, UxActivity::class.java))
+                }
             }
             R.id.actionHome ->{
                 activity?.let{
@@ -95,8 +116,52 @@ class PictureOfTheDayFragment : Fragment() {
                 data = Uri.parse("https://en.wikipedia.org/wiki/${searchText}")
             })
         }
-
     }
+
+    private fun changeTextView() {
+        val text = binding.textViewPictureExplanation.text.toString()
+        val spannableStringBuilder = SpannableStringBuilder(text)
+
+        for (i in text.indices) {
+            if (text[i] == 'e') {
+                spannableStringBuilder.setSpan(
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            androidx.appcompat.R.color.error_color_material_dark
+                        )
+                    ),
+                    i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        }
+
+        spannableStringBuilder.setSpan(UnderlineSpan(), 0, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
+        val request = FontRequest(
+            "com.google.android.gms.fonts", "com.google.android.gms", "Roboto",
+            R.array.com_google_android_gms_fonts_certs
+        )
+
+        val callback = object : FontsContractCompat.FontRequestCallback() {
+            @RequiresApi(Build.VERSION_CODES.P)
+            override fun onTypefaceRetrieved(typeface: Typeface?) {
+                typeface?.let {
+                    spannableStringBuilder.setSpan(
+                        TypefaceSpan(it),
+                        0, spannableStringBuilder.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+                super.onTypefaceRetrieved(typeface)
+            }
+        }
+            FontsContractCompat.requestFont(requireContext(),request,callback, Handler(Looper.getMainLooper()))
+
+        binding.textViewPictureExplanation.setText(spannableStringBuilder, TextView.BufferType.EDITABLE)
+
+        }
+
 
     private fun renderData(appState: AppState){
         when(appState){
@@ -108,6 +173,7 @@ class PictureOfTheDayFragment : Fragment() {
             }
             is AppState.Success -> {
                 binding.imageView.load(appState.pictureOfTheDayResponseData.url)
+                binding.textViewPictureExplanation.text = appState.pictureOfTheDayResponseData.explanation
             }
         }
     }
@@ -136,12 +202,14 @@ class PictureOfTheDayFragment : Fragment() {
                 binding.imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                 binding.wikiInput.visibility = View.GONE
                 binding.bottomAppBar.visibility = View.GONE
+                binding.textViewPictureExplanation.visibility = View.GONE
             }else {
                 params.height = CoordinatorLayout.LayoutParams.WRAP_CONTENT
                 params.topMargin = resources.getDimensionPixelSize(R.dimen.margin_top_picure_of_the_day)
                 binding.imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
                 binding.wikiInput.isVisible = true
                 binding.bottomAppBar.isVisible = true
+                binding.textViewPictureExplanation.isVisible = true
             }
             binding.imageView.layoutParams = params
         }

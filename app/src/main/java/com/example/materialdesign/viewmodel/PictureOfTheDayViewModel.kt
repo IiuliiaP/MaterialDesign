@@ -22,6 +22,7 @@ class PictureOfTheDayViewModel(private val liveData: MutableLiveData<AppState> =
     fun sendRequest() {
         liveData.postValue(AppState.Loading)
         repositoryImpl.getPictureOfTheDayAPI().getPictureOfTheDay(BuildConfig.NASA_API_KEY).enqueue(callback)
+
     }
 
     private val callback = object : Callback<PictureOfTheDayData> {
